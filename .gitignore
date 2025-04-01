@@ -1,0 +1,14 @@
+volumes/
+*.env
+admin-web/
+user-service/
+auth-service/
+agent-service/
+gateway-service/
+integration-service/
+mcp-service/
+model-service/
+rag-service/
+tenant-service/
+user-web/
+

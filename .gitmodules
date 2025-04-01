@@ -1,0 +1,3 @@
+[submodule "ctrl-agent-user-service"]
+	path = ctrl-agent-user-service
+	url = https://github.com/bk-ctrlagent/ctrl-agent-user-service.git
