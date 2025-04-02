@@ -41,7 +41,7 @@ services:
   #   ports:
   #     - "${EXPOSE_TENANT_POSTGRES_PORT:-5432}:5432"
 
-  user-db:
+  user_db:
     image: postgres:15-alpine
     restart: always
     env_file:
@@ -55,23 +55,24 @@ services:
     ports:
       - "${EXPOSE_USER_POSTGRES_PORT:-5432}:5432"
     networks:
-      - ctrl_network
+      - ctrl_networks
 
-#  user-service:
-#    build: ./user-service
-#    image: user-service:latest
-#    restart: always
-#    env_file:
-#      - ./middleware.env
-#    environment:
-#      CONSUL_HOST: consul
-#      CONSUL_PORT: 8500
-#    ports:
-#      - "${EXPOSE_USER_SERVICE_PORT:-8000}:8000"
-#    networks:
-#      - ctrl_network
-#    depends_on:
-#      - consul
+  user_service:
+   build: ./ctrl-agent-user-service
+   image: user-service:latest
+   restart: always
+   env_file:
+     - ./middleware.env
+   environment:
+     CONSUL_HOST: consul
+     CONSUL_PORT: 8500
+   ports:
+     - "${EXPOSE_USER_SERVICE_PORT:-8000}:8000"
+   networks:
+     - ctrl_networks
+   depends_on:
+     - consul
+     - user_db
 
   # admin-db:
   #   image: postgres:15-alpine
@@ -144,8 +145,8 @@ services:
     ports:
       - "${EXPOSE_CONSUL_PORT:-8500}:8500"
     networks:
-      - ctrl_network
+      - ctrl_networks
 
 networks:
-  ctrl_network:
+  ctrl_networks:
     driver: bridge
